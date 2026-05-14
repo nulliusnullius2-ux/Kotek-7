@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>CAT_SYSTEM.exe</title>
+
+<style>
+
+html,body{
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background:black;
+    font-family:Consolas,monospace;
+    height:100%;
+    color:#00ff66;
+}
+
+/* TERMINAL */
+
+#terminal{
+    position:absolute;
+    left:0;
+    top:0;
+    width:40%;
+    height:100%;
+    overflow:hidden;
+    padding:12px;
+    box-sizing:border-box;
+    border-right:1px solid #00ff66;
+    font-size:12px;
+    line-height:14px;
+    text-shadow:0 0 5px #00ff66;
+}
+
+/* CAT */
+
+#catArea{
+    position:absolute;
+    right:0;
+    top:0;
+    width:60%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+#cat{
+    red-space:pre;
+    font-size:44px;
+    line-height:44px;
+    color:#00ff66;
+
+    text-shadow:
+    0 0 5px #00ff66,
+    0 0 10px #00ff66,
+    0 0 20px #00ff66,
+    0 0 40px #00ff66;
+
+    transform-origin:center;
+    transition:transform 0.1s linear;
+}
+
+#title{
+    margin-top:25px;
+    font-size:50px;
+    letter-spacing:5px;
+
+    text-shadow:
+    0 0 10px #00ff66,
+    0 0 20px #00ff66;
+
+    animation:flash 1s infinite;
+}
+
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.35;}
+    100%{opacity:1;}
+}
+
+#warning{
+    position:fixed;
+    bottom:10px;
+    right:15px;
+    font-size:13px;
+    opacity:0.7;
+}
+
+</style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<div id="catArea">
+
+<pre id="cat"></pre>
+
+<div id="title">CAT SYSTEM</div>
+
+</div>
+
+<div id="warning">
+FUCK YOU HIHIHIH
+</div>
+
+<script>
+
+/* =========================
+   TERMINAL
+========================= */
+
+const terminal = document.getElementById("terminal");
+
+const logs = [
+
+"Initializing secure session...",
+"Analyzing runtime environment...",
+"Loading system modules...",
+"Scanning active processes...",
+"Monitoring memory usage...",
+"Processing transfer queue...",
+"Synchronizing data stream...",
+"Validating system integrity...",
+"Updating transfer cache...",
+"Inspecting file structure...",
+"Rendering visual module...",
+"Calibrating analysis engine...",
+"Optimizing performance...",
+"Checking secure channels...",
+"Monitoring device response...",
+"Refreshing system tables..."
+];
+
+function randomHex(len){
+
+    const chars="ABCDEF0123456789";
+
+    let out="";
+
+    for(let i=0;i<len;i++){
+
+        out += chars[Math.floor(Math.random()*chars.length)];
+    }
+
+    return out;
+}
+
+function addLog(){
+
+    const percent =
+    Math.floor(Math.random()*100);
+
+    const speed =
+    (Math.random()*12).toFixed(2);
+
+    const log =
+    "[" + new Date().toLocaleTimeString() + "] "
+    + logs[Math.floor(Math.random()*logs.length)]
+    + " | transfer: "
+    + speed
+    + " MB/s | progress: "
+    + percent
+    + "% | ID:"
+    + randomHex(12);
+
+    terminal.innerHTML += log + "<br>";
+
+    terminal.scrollTop = terminal.scrollHeight;
+
+    if(terminal.innerHTML.length > 120000){
+
+        terminal.innerHTML =
+        terminal.innerHTML.slice(-90000);
+    }
+}
+
+setInterval(addLog,40);
+
+/* =========================
+   CAT
+========================= */
+
+const cat = document.getElementById("cat");
+
+const frames = [
+
+String.raw`
+ /\_/\\
+(=^.^=)
+ /|_|\\
+/_/ \\_\\
+`,
+
+String.raw`
+ /\_/\\
+(=^o^=)
+ \\|_|/
+  / \\
+ /_/ \\_
+`,
+
+String.raw`
+ /\_/\\
+(=^.^=)
+ /|_|\\🖕
+  / \\
+ /_/ \\_
+`,
+
+String.raw`
+ /\_/\\
+(=^o^=)
+ \\|_|/
+ /_/ \\_\\
+`
+
+];
+
+let frame = 0;
+
+function dance(){
+
+    cat.textContent = frames[frame];
+
+    const t = Date.now()/300;
+
+    const moveX =
+    Math.sin(t)*60;
+
+    const moveY =
+    Math.cos(t*1.4)*25;
+
+    const rotate =
+    Math.sin(t)*10;
+
+    const scale =
+    1 + Math.sin(t*1.5)*0.08;
+
+    cat.style.transform = `
+    translate(${moveX}px,${moveY}px)
+    rotate(${rotate}deg)
+    scale(${scale})
+    `;
+
+    frame++;
+
+    if(frame >= frames.length){
+
+        frame = 0;
+    }
+}
+
+setInterval(dance,180);
+
+</script>
+
+</body>
+</html>
